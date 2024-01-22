@@ -1,0 +1,55 @@
+package com.gz.chat.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.gz.chat.model.service.ChatService;
+import com.gz.chat.model.vo.Chat;
+
+@WebServlet("/saveChat.ch")
+public class SelectChatListController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private ChatService chatService;  // ChatService 필드 추가
+
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SelectChatListController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // GET 요청에 대한 동작 구현 (필요에 따라)
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String chatName = request.getParameter("chatName");
+        String chatContent = request.getParameter("chatContent");
+
+        // ChatService를 호출하여 데이터베이스에 메시지 저장
+        int result = chatService.saveChatMessage(chatName, chatContent);
+
+        // 저장 결과에 따른 응답
+        if (result > 0) {
+            response.getWriter().write("Chat message saved successfully.");
+        } else {
+            response.getWriter().write("Failed to save chat message.");
+        }
+    }
+
+
+}

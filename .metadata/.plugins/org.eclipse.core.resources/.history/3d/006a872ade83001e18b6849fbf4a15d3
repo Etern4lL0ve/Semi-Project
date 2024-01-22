@@ -1,0 +1,106 @@
+<!-- Chat.jsp -->
+<script>
+    $(document).ready(function () {
+        var chatVisible = false;
+        var autoScroll = true;
+        var userName;
+        var chatPollingInterval;
+
+        // 페이지 로딩 시 최소화 상태로 설정
+        $("#chat-container, #sendMessageBtn, #chat-input").hide();
+
+        // 최소화/최대화 토글 버튼 클릭 이벤트
+        $("#toggleChatBtn").click(function () {
+            if (chatVisible) {
+                // 채팅창이 보이는 상태일 때
+                $("#sendMessageBtn, #chat-input").hide();
+                $("#toggleChatBtn").text("최대화").show();
+                stopChatPolling();
+                clearChatMessages();
+            } else {
+                // 채팅창이 숨겨진 상태일 때
+                if (!userName) {
+                    userName = prompt("닉네임을 입력하세요");
+                }
+
+                $("#chat-container").show();
+                $("#toggleChatBtn").text("최소화");
+                $("#sendMessageBtn, #chat-input").show();
+                startChatPolling();
+            }
+
+            // 채팅창 상태 토글
+            chatVisible = !chatVisible;
+        });
+
+        // 메세지 조회 함수
+        function getChatMessages() {
+            $.ajax({
+                type: "POST",
+                url: "selectChat.ch",
+                dataType: "json",
+                success: function (response) {
+                    var messagesDiv = $("#chat-messages");
+
+                    for (var i = response.length - 1; i >= 0; i--) {
+                        var message = response[i];
+                        messagesDiv.append("<p><strong>" + message.chatName + ":</strong> " + message.chatContent + " - " + message.chatDate + "</p>");
+                    }
+
+                    if (autoScroll) {
+                        messagesDiv.scrollTop(messagesDiv.prop("scrollHeight"));
+                        autoScroll = false;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+
+        // 채팅 메시지 주기적으로 조회하는 함수
+        function startChatPolling() {
+            chatPollingInterval = setInterval(getChatMessages, 5000);
+        }
+
+        // 채팅 메시지 조회 중지 함수
+        function stopChatPolling() {
+            clearInterval(chatPollingInterval);
+        }
+
+        // 채팅창 비우는 함수
+        function clearChatMessages() {
+            $("#chat-messages").empty();
+        }
+
+        // 전송 버튼 클릭 이벤트
+        $("#sendMessageBtn").click(function () {
+            var messageInput = $("#messageInput");
+            var messageContent = messageInput.val().trim();
+
+            if (messageContent !== "") {
+                $.ajax({
+                    type: "POST",
+                    url: "saveChat.ch",
+                    data: { chatName: userName, chatContent: messageContent },
+                    success: function (response) {
+                        getChatMessages();
+                        autoScroll = true;
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+                messageInput.val("");
+            }
+        });
+
+        // 자동스크롤 비활성화
+        $("#chat-messages").on("scroll", function () {
+            autoScroll = false;
+        });
+    });
+</script>

@@ -1,0 +1,42 @@
+package com.gz.chat.model.service;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.gz.chat.model.dao.ChatDao;
+import com.gz.chat.model.vo.Chat;
+import com.gz.common.JDBCTemplate;
+
+public class ChatService {
+
+    private ChatDao chatDao;
+
+    public ChatService(ChatDao chatDAO) {
+        this.chatDao = chatDAO;
+    }
+
+    public boolean saveChatMessage(String chatName, String chatContent) {
+        try {
+            return chatDao.saveChatMessage(chatName, chatContent);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // 예외 처리 (로그 기록 등)
+            return false;
+        }
+    }
+
+	
+	public ArrayList<Chat> getChatMessages() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Chat> list = new ChatDao().selectChatList(conn);
+		
+		return list;
+	}
+
+
+	}
+
+

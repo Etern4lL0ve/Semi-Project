@@ -1,0 +1,21 @@
+package com.gz.complain.model.dao;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.gz.complain.model.vo.Reply;
+
+public class ReplyDao {
+
+	public ArrayList<Reply> selectReplyList(int complainNo, Connection conn) {
+
+		ArrayList<Reply> list = new ArrayList<>();
+		
+		
+		return null;
+	}
+	
+	
+	
+
+}

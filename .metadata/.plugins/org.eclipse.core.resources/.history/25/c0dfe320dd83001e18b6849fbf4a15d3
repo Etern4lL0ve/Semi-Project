@@ -1,0 +1,142 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Application</title>
+    <style>
+        #chat-container {
+            position: fixed;
+            display: none;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        #chat-messages {
+            font-size: 12px;
+            overflow-y: auto;
+            max-height: 300px;
+            width: 220px;
+            z-index: 1;
+            position: fixed;
+            top: 20px;
+        }
+
+        #chat-input {
+            position: fixed;
+            bottom: 380px;
+            left: 10px;
+            width: 200px;
+            z-index: 2;
+            height: 30px;
+            display: none;
+        }
+
+        #chat-input .input-group {
+            width: 100%;
+        }
+
+        #messageInput {
+            width: calc(100% - 86px);
+        }
+
+        #sendMessageBtn {
+            width: 86px;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-messages"></div>
+        <div id="chat-input">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="메세지를 입력하세요" id="messageInput">
+                <button class="btn btn-primary" type="button" id="sendMessageBtn">전송</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var autoScroll = true;
+            var userName;
+            var chatPollingInterval;
+
+            // 페이지 로딩 시 채팅창 숨기기
+            $("#chat-container, #sendMessageBtn, #chat-input").hide();
+
+            // 메세지 조회 함수
+            function getChatMessages() {
+                $.ajax({
+                    type: "POST",
+                    url: "selectChat.ch",
+                    dataType: "json",
+                    success: function (response) {
+                        var messagesDiv = $("#chat-messages");
+
+                        for (var i = response.length - 1; i >= 0; i--) {
+                            var message = response[i];
+                            messagesDiv.append("<p><strong>" + message.chatName + ":</strong> " + message.chatContent + " - " + message.chatDate + "</p>");
+                        }
+
+                        if (autoScroll) {
+                            messagesDiv.scrollTop(messagesDiv.prop("scrollHeight"));
+                            autoScroll = false;
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }
+
+            // 채팅 메시지 주기적으로 조회하는 함수
+            function startChatPolling() {
+                chatPollingInterval = setInterval(getChatMessages, 5000);
+            }
+
+            // 채팅 메시지 조회 중지 함수
+            function stopChatPolling() {
+                clearInterval(chatPollingInterval);
+            }
+
+            // 채팅창 비우는 함수
+            function clearChatMessages() {
+                $("#chat-messages").empty();
+            }
+
+            // 전송 버튼 클릭 이벤트
+            $("#sendMessageBtn").click(function () {
+                var messageInput = $("#messageInput");
+                var messageContent = messageInput.val().trim();
+
+                if (messageContent !== "") {
+                    $.ajax({
+                        type: "POST",
+                        url: "saveChat.ch",
+                        data: { chatName: userName, chatContent: messageContent },
+                        success: function (response) {
+                            getChatMessages();
+                            autoScroll = true;
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+
+                    messageInput.val("");
+                }
+            });
+
+            // 자동스크롤 비활성화
+            $("#chat-messages").on("scroll", function () {
+                autoScroll = false;
+            });
+        });
+    </script>
+</body>
+</html>

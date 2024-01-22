@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-messages">
+            <!-- 채팅 메시지를 출력하는 부분 -->
+        </div> 
+        <div id="chat-input">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="메세지를 입력하세요" id="messageInput">
+                <button class="btn btn-primary" type="button" id="sendMessageBtn">전송</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // 여기에 채팅과 관련된 JavaScript 코드를 추가
+        });
+    </script>
+</body>
+</html>

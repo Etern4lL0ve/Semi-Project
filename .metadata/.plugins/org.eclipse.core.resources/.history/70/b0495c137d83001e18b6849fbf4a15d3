@@ -1,0 +1,54 @@
+package com.gz.chat.model.vo;
+
+import java.sql.Date;
+
+public class Chat {
+	
+	private String chatName;
+	private String chatContent;
+	private String chatDate;
+	public Chat() {
+		super();
+	}
+	public Chat(String chatName, String chatContent, String chatDate) {
+		super();
+		this.chatName = chatName;
+		this.chatContent = chatContent;
+		this.chatDate = chatDate;
+		
+		
+		
+	}
+	public Chat(String chatName, String chatContent) {
+		super();
+		this.chatName = chatName;
+		this.chatContent = chatContent;
+	}
+	public String getChatName() {
+		return chatName;
+	}
+	public void setChatName(String chatName) {
+		this.chatName = chatName;
+	}
+	public String getChatContent() {
+		return chatContent;
+	}
+	public void setChatContent(String chatContent) {
+		this.chatContent = chatContent;
+	}
+	public String getChatDate() {
+		return chatDate;
+	}
+	public void setChatDate(String chatDate) {
+		this.chatDate = chatDate;
+	}
+	@Override
+	public String toString() {
+		return "Chat [chatName=" + chatName + ", chatContent=" + chatContent + ", chatDate=" + chatDate + "]";
+	}
+	
+	
+	
+	
+
+}

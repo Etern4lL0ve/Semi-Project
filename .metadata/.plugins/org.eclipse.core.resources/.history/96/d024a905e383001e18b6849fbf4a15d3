@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+        /* 추가적인 스타일은 필요에 따라 추가하세요. */
+        #chat-container {
+            display: none; /* 초기에는 화면에 표시하지 않음 */
+        }
+    </style>
+</head>
+<body>
+    <%@ include file="views/common/menubar.jsp" %>
+
+    <div>
+        <div>
+            <button onclick="toggleChat()">토글 채팅</button>
+            <div id="chat-container">
+                <jsp:include page="/views/chat/Chat.jsp"></jsp:include>
+            </div>
+        </div>
+     </div> 
+
+    <%@ include file="views/common/main.jsp" %>
+
+    <% include file = "views/common/footer.jsp" %>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 페이지 로드시 실행되는 부분
+            var chatContainer = document.getElementById('chat-container');
+
+            // 토글 버튼 클릭 이벤트
+            document.getElementById('toggle-chat-btn').addEventListener('click', function() {
+                toggleChat();
+            });
+        });
+
+        function toggleChat() {
+            var chatContainer = document.getElementById('chat-container');
+
+            // chat-container의 display 속성이 'none'이면 'block'으로, 'block'이면 'none'으로 전환
+            chatContainer.style.display = (chatContainer.style.display === 'none') ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

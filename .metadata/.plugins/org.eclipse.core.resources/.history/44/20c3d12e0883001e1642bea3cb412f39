@@ -1,0 +1,62 @@
+package com.gz.chat.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.gz.chat.model.service.ChatService;
+import com.gz.chat.model.vo.Chat;
+
+/**
+ * Servlet implementation class SelectChatListController
+ */
+@WebServlet("/selectChat.ch")
+public class SelectChatListController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SelectChatListController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//전체채팅조회
+		ArrayList<Chat> list = new ChatService().selectChatList();
+		
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/chat/Chat.jsp").forward(request, response);
+	
+	
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+		String chatName = request.getParameter("chatName");
+        String chatContent = request.getParameter("chatContent");
+
+        // 실제로는 ChatService를 호출하여 데이터베이스에 메시지 저장
+
+        // 메시지 생성 (실제로는 데이터베이스에서 읽어온 데이터일 것임)
+        String chatMessage = "<p><strong>" + chatName + ":</strong> " + chatContent + "</p>";
+
+        // 응답으로 클라이언트에게 전송
+        response.getWriter().write(chatMessage);
+    }
+
+	}
+
+

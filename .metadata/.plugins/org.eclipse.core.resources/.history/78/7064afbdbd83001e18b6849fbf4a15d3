@@ -1,0 +1,21 @@
+rs to subclasses" category="_4FPJ1oL1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FUpgoL1Ee65_4dQZ6nzxg" elementId="org.eclipse.ui.window.nextPerspective" commandName="Next Perspective" description="Switch to the next perspective" category="_4FOiy4L1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FUpg4L1Ee65_4dQZ6nzxg" elementId="org.eclipse.mylyn.tasks.ui.command.UpdateRepositoryConfiguration" commandName="Update Repository Configuration" category="_4FOi14L1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FUphIL1Ee65_4dQZ6nzxg" elementId="org.eclipse.debug.ui.commands.console.clear" commandName="Clear Console" description="Clear Console" category="_4FOizoL1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FUphYL1Ee65_4dQZ6nzxg" elementId="org.eclipse.jdt.ui.edit.text.java.search.write.access.in.working.set" commandName="Write Access in Working Set" description="Search for write references to the selected element in a working set" category="_4FPJ24L1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQcIL1Ee65_4dQZ6nzxg" elementId="org.eclipse.egit.ui.history.ShowVersions" commandName="Open this Version" category="_4FOi14L1Ee65_4dQZ6nzxg">
+    <parameters xmi:id="_4FVQcYL1Ee65_4dQZ6nzxg" elementId="org.eclipse.egit.ui.history.CompareMode" name="Compare mode"/>
+  </commands>
+  <commands xmi:id="_4FVQcoL1Ee65_4dQZ6nzxg" elementId="org.eclipse.ui.navigate.nextTab" commandName="Next Tab" description="Switch to the next tab" category="_4FPJ0IL1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQc4L1Ee65_4dQZ6nzxg" elementId="org.eclipse.ui.window.quickAccess" commandName="Find Actions" description="Quickly access UI elements" category="_4FOiy4L1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQdIL1Ee65_4dQZ6nzxg" elementId="org.eclipse.ui.edit.text.showInformation" commandName="Show Tooltip Description" description="Displays information for the current caret location in a focused hover" category="_4FOiw4L1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQdYL1Ee65_4dQZ6nzxg" elementId="org.eclipse.jdt.ui.edit.text.java.add.import" commandName="Add Import" description="Create import statement on selection" category="_4FPJ4oL1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQdoL1Ee65_4dQZ6nzxg" elementId="org.eclipse.mylyn.tasks.ui.command.attachment.open" commandName="Open Attachment" category="_4FOi3IL1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQd4L1Ee65_4dQZ6nzxg" elementId="org.eclipse.wst.jsdt.ui.correction.extractLocal.assist" commandName="Quick Assist - Extract local variable" description="Invokes quick assist and selects 'Extract local variable'" category="_4FOixYL1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQeIL1Ee65_4dQZ6nzxg" elementId="org.eclipse.wst.jsdt.ui.correction.renameInFile.assist" commandName="Quick Assist - Rename in file" description="Invokes quick assist and selects 'Rename in file'" category="_4FOixYL1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQeYL1Ee65_4dQZ6nzxg" elementId="org.eclipse.debug.ui.commands.toggleMemoryMonitorsPane" commandName="Toggle Memory Monitors Pane" description="Toggle visibility of the Memory Monitors Pane" category="_4FOizoL1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQeoL1Ee65_4dQZ6nzxg" elementId="org.eclipse.jdt.ui.edit.text.java.search.implementors.in.working.set" commandName="Implementors in Working Set" description="Search for implementors of the selected interface in a working set" category="_4FPJ24L1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQe4L1Ee65_4dQZ6nzxg" elementId="org.eclipse.egit.ui.team.Discard" commandName="Replace with File in Index" category="_4FPJ3IL1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQfIL1Ee65_4dQZ6nzxg" elementId="org.eclipse.datatools.sqltools.sqleditor.refreshFromDatabaseAction" commandName="Refresh from Database" category="_4FPJ3YL1Ee65_4dQZ6nzxg"/>
+  <commands xmi:id="_4FVQfYL1Ee65_4dQZ6nzxg" elementId="org.eclipse.datatools.sqltools.sqleditor.ExecuteAsOneStatementAction" commandName="Execute Selected Text As One Statement" category="_4FPJ3YL1Ee65_4dQZ6nzxg"/>
+  <co

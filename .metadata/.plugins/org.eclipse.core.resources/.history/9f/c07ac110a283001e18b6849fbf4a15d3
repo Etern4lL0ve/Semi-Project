@@ -1,0 +1,160 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Application</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+  body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa; /* 페이지 배경색 지정 */
+        }
+
+        #chat-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ffffff; /* 채팅 컨테이너 배경색 지정 */
+            border: 1px solid #ced4da; /* 채팅 컨테이너 테두리 스타일 */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+        }
+
+        #chat-messages {
+            font-size: 12px;
+            overflow-y: auto;
+            max-height: 300px;
+            width: 220px;
+            z-index: 1;
+        }
+
+        #chat-input {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        #chat-input .input-group {
+            width: 100%;
+        }
+
+        #messageInput {
+            width: calc(100% - 86px);
+        }
+
+        #sendMessageBtn {
+            width: 86px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-messages"></div>
+    </div>
+    <div id="chat-input">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="메세지를 입력하세요" id="messageInput">
+            <button class="btn btn-primary" type="button" id="sendMessageBtn">전송</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            var autoScroll = true;
+            var userName = "<%= request.getParameter("userName") %>"; // JSP에서 파라미터 받기
+
+            // 랜덤 문자열 생성 함수
+            function randomString(length) {
+                const base = '가'.charCodeAt(0);
+                const range = '힣'.charCodeAt(0) - base + 1;
+                let result = '';
+                for (let i = 0; i < length; i++) {
+                    const randomOffset = Math.floor(Math.random() * range);
+                    result += String.fromCharCode(base + randomOffset);
+                }
+                return result;
+            }
+
+            // 메세지 조회 함수
+            function getChatMessages() {
+                $.ajax({
+                    type: "POST",
+                    url: "selectChat.ch",
+                    dataType: "json",
+                    success: function (response) {
+                        var messagesDiv = $("#chat-messages");
+
+                        // 역순으로 출력
+                        for (var i = response.length - 1; i >= 0; i--) {
+                            var message = response[i];
+                            messagesDiv.append("<p><strong>" + message.chatName + ":</strong> " + message.chatContent + " - " + message.chatDate + "</p>");
+                        }
+
+                        if (autoScroll) {
+                            // 자동 스크롤 설정
+                            messagesDiv.scrollTop(messagesDiv.prop("scrollHeight"));
+                            autoScroll = false;
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }
+
+            // 초기 메세지 조회
+            getChatMessages();
+
+            // 전송 버튼 클릭 이벤트
+            $("#sendMessageBtn").click(function() {
+                var messageInput = $("#messageInput");
+                var messageContent = messageInput.val().trim();
+
+                if (messageContent !== "") {
+                    $.ajax({
+                        type: "POST",
+                        url: "saveChat.ch",
+                        data: { chatName: userName, chatContent: messageContent },
+                        success: function(response) {
+                            // 전송 후 조회
+                            getChatMessages();
+                            autoScroll = true; // 메세지 추가되면 스크롤 아래로
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+
+                    // 인풋박스 초기화
+                    messageInput.val("");
+                }
+            });
+
+            // 자동스크롤 비활성화
+            $("#chat-messages").on("scroll", function() {
+                autoScroll = false;
+            });
+
+            // 페이지 새로고침 시 랜덤 값 변경
+            $(window).on("beforeunload", function() {
+                sessionStorage.setItem("randomValue", randomString(5));
+            });
+
+            // 페이지 로딩 시 랜덤 값 불러오기
+            var initialRandomValue = sessionStorage.getItem("randomValue");
+            if (initialRandomValue) {
+                sessionStorage.removeItem("randomValue");
+                randomValue = initialRandomValue;
+            }
+        });
+    </script>
+</body>
+</html>

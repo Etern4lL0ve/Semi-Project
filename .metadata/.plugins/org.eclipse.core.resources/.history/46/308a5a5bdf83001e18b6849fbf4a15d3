@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+        /* 추가적인 스타일은 필요에 따라 추가하세요. */
+        #chat-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <%@ include file="views/common/menubar.jsp" %>
+
+    <div>
+        <div>
+            <button onclick="toggleChat()">토글 채팅</button>
+            <div id="chat-container">
+                <jsp:include page="/views/chat/Chat.jsp"></jsp:include>
+            </div>
+        </div>
+     </div> 
+
+    <%@ include file="views/common/main.jsp" %>
+
+    <jsp:include page="views/common/footer.jsp"></jsp:include>
+
+    <script>
+        function toggleChat() {
+            var chatContainer = document.getElementById('chat-container');
+            chatContainer.style.display = (chatContainer.style.display === 'none') ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

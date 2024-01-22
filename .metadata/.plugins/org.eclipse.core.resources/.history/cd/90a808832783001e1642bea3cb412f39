@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key="insertChatMessage">
+    INSERT INTO CHAT (CHAT_NAME, CHAT_CONTENT, CHAT_DATE)
+    VALUES (?, ?, SYSDATE)
+</entry>
+
+
+<entry key="selectChatMessages">
+SELECT * FROM (
+    SELECT * FROM CHAT ORDER BY CHAT_DATE DESC
+) WHERE ROWNUM 1 BETWEEN 20
+</entry>
+
+
+</properties>

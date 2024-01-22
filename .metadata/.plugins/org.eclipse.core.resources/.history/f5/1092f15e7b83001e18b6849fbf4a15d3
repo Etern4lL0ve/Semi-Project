@@ -1,0 +1,14 @@
+package com.gz.complain.model.service;
+
+import java.util.ArrayList;
+
+import com.gz.complain.model.vo.Reply;
+
+public class ReplyService {
+
+	public ArrayList<Reply> selectReplyList(int complainNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

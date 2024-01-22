@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* 100% 뷰포트 높이로 설정하여 화면 전체를 채우도록 함 */
+        }
+
+        .menu-link{
+            border: 1px solid #ac5f5f;
+
+        }
+
+        .mypage-menu {
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        li {
+            margin-right: 15px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        a:hover {
+            color: #007bff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <title>마이페이지</title>
+</head>
+<body>
+    <div class="mypage-menu">
+        <ul>
+            <li><a href="#" class="menu-link" data-target="interest-posts">관심글</a></li>
+            <li><a href="#" class="menu-link" data-target="my-posts">내가 쓴글</a></li>
+            <li><a href="#" class="menu-link" data-target="my-info">내 정보</a></li>
+            <li><a href="#" class="menu-link" data-target="change-password">비밀번호 변경</a></li>
+            <li><a href="#" class="menu-link" data-target="withdraw">회원 탈퇴</a></li>
+        </ul>
+    </div>
+
+    <div id="interest-posts" class="menu-content" style="display: none;">
+        <h2>관심글</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>글 번호</th>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>작성일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>테스트 글 1</td>
+                    <td>테스트 내용 1</td>
+                    <td>2023-01-01</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>테스트 글 2</td>
+                    <td>테스트 내용 2</td>
+                    <td>2023-01-01</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+    <div id="my-posts" class="menu-content" style="display: none;">
+        <h2>내가 쓴글</h2>
+        <table>
+            <!-- 내가 쓴글에 대한 내용을 표시할 테이블 구성 -->
+        </table>
+    </div>
+
+    <div id="my-info" class="menu-content" style="display: none;">
+        <h2>내 정보</h2>
+        <p>여기에 내 정보를 표시하는 내용을 추가</p>
+    </div>
+
+    <div id="change-password" class="menu-content" style="display: none;">
+        <h2>비밀번호 변경</h2>
+        <p>여기에 비밀번호 변경 양식 또는 내용을 추가</p>
+    </div>
+
+    <div id="withdraw" class="menu-content" style="display: none;">
+        <h2>회원 탈퇴</h2>
+        <p>여기에 회원 탈퇴 양식 또는 내용을 추가</p>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".menu-link").click(function () {
+                var targetId = $(this).data("target");
+                $(".menu-content").hide();
+                $("#" + targetId).show();
+            });
+        });
+    </script>
+</body>
+</html>

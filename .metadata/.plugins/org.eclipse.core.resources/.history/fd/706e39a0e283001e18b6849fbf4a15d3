@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+    <%@ include file="views/common/menubar.jsp" %>
+
+    <div>
+        <div>
+            <button onclick="toggleChat()">토글 채팅</button>
+            <div id="chat-container"></div>
+        </div>
+     </div> 
+
+    <%@ include file="views/common/main.jsp" %>
+
+    <jsp:include page="views/common/footer.jsp"></jsp:include>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function toggleChat() {
+                var chatContainer = document.getElementById('chat-container');
+                chatContainer.style.display = (chatContainer.style.display === 'none') ? 'block' : 'none';
+            }
+        });
+    </script>
+</body>
+</html>

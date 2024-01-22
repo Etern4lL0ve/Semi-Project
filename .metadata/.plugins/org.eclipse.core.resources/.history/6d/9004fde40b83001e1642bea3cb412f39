@@ -1,0 +1,55 @@
+@WebServlet("/selectChat.ch")
+public class SelectChatListController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private ChatService chatService;  // ChatService 필드 추가
+
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SelectChatListController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    // init 메서드에서 ChatService 초기화
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.chatService = new ChatService();  // ChatService 초기화
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // GET 요청에 대한 동작 구현 (필요에 따라)
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String chatName = request.getParameter("chatName");
+        String chatContent = request.getParameter("chatContent");
+
+        // ChatService를 호출하여 데이터베이스에 메시지 저장
+        int result = chatService.saveChatMessage(chatName, chatContent);
+
+        // 저장 결과에 따른 응답
+        if (result > 0) {
+            response.getWriter().write("Chat message saved successfully.");
+        } else {
+            response.getWriter().write("Failed to save chat message.");
+        }
+    }
+
+    public void getChatMessages(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // ChatService를 호출하여 채팅 메시지 조회
+        ArrayList<Chat> chatMessages = chatService.getChatMessages();
+
+        // 조회 결과를 JSON 형식으로 응답
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(new Gson().toJson(chatMessages));
+    }
+}

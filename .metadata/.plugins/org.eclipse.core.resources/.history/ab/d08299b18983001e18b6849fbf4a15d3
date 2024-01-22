@@ -1,0 +1,603 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.outer table {
+	border-color: black;
+	color: black;
+
+}
+
+@font-face {
+	font-family: 'TheJamsil5Bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: 700;
+	font-style: normal;
+}
+
+table#detail-area th, table#detail-area td {
+	padding: 5px 0; /* 위아래 여백을 조절하려면 해당 값을 조정하세요 */
+}
+
+#reply-area .btn {
+	background-color: rgb(241, 205, 27);
+	margin-top: -5px;
+	width: 80px;
+	height: 80px;
+	margin: 0;
+}
+
+#fixed-header {
+	position: fixed;
+	top: 0;
+	background-color: white;
+	width: 100%;
+	z-index: 100;
+}
+
+#reply-area {
+    width: 100%; 
+    margin: 0 auto;
+}
+
+
+#reply-area{
+	text-align: center;
+	margin: 0 auto;
+	float: left;
+	left: 50%;
+}
+#reply-area table{
+  margin-bottom: 80px;
+}
+    #reply-area textarea {
+      display: block;
+      width: 500px; /* 기존 가로 크기 유지 */
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px; /* 원하는 상하 여백 값으로 조정 */
+      margin-bottom: 20px; /* 원하는 상하 여백 값으로 조정 */
+    }
+
+/* 
+#reply-area td {
+	padding: 0; 수정: 더 적은 여백으로 조절 
+}
+*/
+
+.btn {
+	width: 80px;
+	height: 40px;
+	
+}
+.detailContainer{
+	justify-content:center;
+	width: 1050px;
+	margin:0 auto;
+}
+
+
+.button1 {
+		border: 2px solid rgb(255, 225, 77);
+		padding: 10px 20px;
+		height : 45px;
+		background-color: rgb(255, 225, 77);
+	}
+	
+	.button1:hover {
+		background-color: rgb(251, 236, 152);
+	}
+	
+	.button2 {
+		border: 2px solid rgb(249, 219, 150);
+		padding: 10px 20px;
+		height : 45px;
+		background-color: rgb(249, 219, 150);
+	}
+	
+	.button2:hover {
+		background-color: rgb(252, 233, 202);
+	}
+	
+	.button3 {
+		border: 2px solid rgb(252, 147, 139);
+		padding: 10px 20px;
+		height : 45px;
+		background-color: rgb(252, 147, 139);
+	}
+	
+	.button3:hover {
+		background-color: rgb(252, 171, 167);
+	}
+	
+	#commentContent {
+	    width: 300px; /* 원하는 가로 크기로 설정 */
+	    height: 100px; /* 원하는 세로 크기로 설정 */
+	    resize: none; /* 사용자가 크기를 조절하지 못하도록 설정 */
+	}
+		
+/* #3btn { */
+/*     border: none; */
+/*     background-color :rgb(255, 227, 84); */
+    
+/* } */
+</style>
+</head>
+<body>
+	<%@ include file="/views/common/menubar.jsp"%>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
+	<div class="outer">
+		<br>
+		<br>
+		<div class = "detailContainer">
+			<h2 align="left"
+				style="width: 700px; margin:0 auto; font-size: 24px; font-family: TheJamsil5Bold">${p.title }</h2>
+			<br>
+			<table id="detail-area" align="center">
+				<tr>
+					<th width="70">번호</th>
+					<td width="10">${p.postNo }</td>
+					<th width="100">카테고리</th>
+					<td width="150">${p.categoryName }</td>
+				</tr>
+				<tr style="border-bottom: 1px solid black;">
+					<th>작성자</th>
+					<td width="100">${p.nickname}</td>
+					<th>조회수</th>
+					<td>${p.count }</td>
+					<th>작성일</th>
+					<td width="200">${p.postDate}</td>
+				</tr>
+				<tr style="border-bottom: 1px solid black;">
+					<th>내용</th>
+					<td colspan="5">
+						<p style="height: 200px; white-space: pre;">${p.content}</p>
+					</td>
+					
+				</tr>
+				<tr>
+					<th>사진</th>
+					<td colspan="5">
+						<%--<img src="${p.refBno}" alt="사진"> --%> 
+						
+							<c:forEach items="${list}" var="at" varStatus="vs">
+								<!-- 상세이미지 -->
+								
+								<img id="contentImg${vs.count}" src="${contextPath}${at.filePath}${at.changeName}" width="200" height="200">
+								
+								
+							</c:forEach>
+						
+						
+						<script>
+						console.log("${contextPath }${at.filePath}${at.changeName}");
+					</script>
+					</td>
+				</tr>
+				<tr style="border-bottom: 1px solid black;">
+					<th width="100">좋아요&nbsp<i class="bi bi-suit-heart-fill"
+						style="color: rgb(241, 205, 27);"></i></th>
+					<td id="likeCount">${p.likeCount}</td>
+					<th width="100">관심&nbsp<i class="bi bi-bookmark"
+						style="color: rgb(241, 205, 27);"></i></th>
+					<td id="interestCount">${p.interestCount}</td>
+				</tr>
+			</table>
+			
+			<br>
+			<c:if test="${ not empty loginMember }">
+				<div style="text-align: center;">
+					<!-- 좋아요 버튼 -->
+					<button class="btn" onclick="increaseLikeCount();" id="likeButton"
+						style="background-color: rgb(241, 205, 27)">
+						<i class="bi bi-heart"></i>
+					</button>
+	
+					<!-- 관심 버튼 -->
+					<button class="btn" onclick="increaseInterestCount();"
+						id="interestButton" style="background-color: rgb(241, 205, 27)">
+						<i class="bi bi-bookmarks"></i>
+					</button>
+	
+				</div>
+			</c:if>
+			<br>
+			<br>
+			<!-- 수정 삭제 목록으로 버튼 -->
+			   <div align="center" style = "margin-left = 200">
+				    <!-- 현재 로그인된 유저의 아이디가 글 작성자와 동일하다면 -->
+				    <c:if test="${not empty loginMember && loginMember.nickname eq p.nickname}">
+				        <!-- 수정 및 삭제 버튼 표시 -->
+				        <button onclick="location.href='${contextPath}/update.bo?postNo=${p.postNo}'" 
+				        	class = "button2" ><b>수정하기</b></button>
+				        <button class = "button3" onclick="location.href='${contextPath}/delete.bo?postNo=${p.postNo}'"  style = "background-color:rgb(252, 147, 139)"><b>삭제하기<b></b></button>
+				    </c:if> 
+				    <button onclick="location.href='${header.referer}'" class = "button1" ><b>목록가기</b></button>
+				</div>
+			<br>
+			<br>
+			
+			<div id="reply-area">
+				<table  style = "margin-left:-250px">
+					<thead>
+						<tr>
+							<th>
+								<h6 align="center" >
+									<b style = "margin-left:50px; font-size:18px"><i class="bi bi-send"></i>&nbsp;댓글</b>
+								</h6>
+							</th>
+							
+						</tr>
+						<tr>
+							<td>
+            					<textarea id="commentContent" rows="3" cols="80" style="min-width:auto; margin-left:521px; margin-top:-5px"></textarea>
+            						
+						</tr>
+						<tr>
+							<td>
+							  <button class="btn btn-outline-warning" onclick="insertComment();" style="margin-left: 950px; font-size: 16px; margin-top: -10px; margin-bottom: 30px; background-color: transparent; height: 40px; width: 70px;">
+								    <b>작성</b>
+								</button>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>작성자</td>
+							<td>내용</td>
+							<td>작성일</td>
+						</tr>
+					</tbody>
+				</table>
+			
+			</div>
+		
+			<br>
+		</div>
+		
+		<script>
+		  $(function() {
+		    selectCommentList(); // Call the function to load comments when the page loads
+		  });
+		
+		</script>
+		<script>
+
+		// 댓글목록 조회 함수
+		function selectCommentList() {
+		    $.ajax({
+		    	url:"commentList.po",
+				data : {postNo : ${p.postNo}
+				},
+				type: "post",
+		        success: function (result) {
+		            var str = "";
+		
+		            if (result.length === 0) {
+		                // 댓글이 없는 경우
+		                str = "<tr><td colspan='5'>댓글이 없습니다.</td></tr>";
+		            } else {
+		                // 댓글이 있는 경우
+		                for (var i in result) {
+		                    str += "<tr>"
+		                        + "<td><i class='bi bi-person-fill'></i>&nbsp;" + result[i].writerNo + "</td>"
+		                        + "<td><input type='text' value='" + result[i].content + "' style='width:400px; margin-left :-500px; margin-top:10px;font-size: 16px;'></td>"
+		                        + "<td>" + result[i].commentDate + "</td>"
+		                        + "<td>";
+		
+		                    // 삭제 버튼 생성 부분에 조건 추가
+		                    if("${loginMember.memberId}" == "admin" || "${loginMember.nickname}"==result[i].writerNo){
+		                        str += '<button class="btn" onclick="deleteComment(' + result[i].commentNo + ');" style="background: none; color:red">삭제</button>';
+		                    }
+		
+		                    str += "</td></tr>";
+		                }
+		            }
+		
+		            $("#reply-area tbody").html(str);
+		
+		            // 댓글을 업데이트한 후에 텍스트 영역 하단으로 스크롤
+		            $("#reply-area").scrollTop($("#reply-area")[0].scrollHeight);
+		        },
+		        error: function () {
+		            console.log("통신오류");
+		        }
+		    });
+		}
+		// 댓글목록 수정 함수
+			function insertComment(){
+			    $.ajax({
+			        url: "insertComment.po",
+			        data: {
+			            content: $("#commentContent").val(),
+			            postNo: ${p.postNo}
+			        },
+			        type: "post",
+			        success: function (result) {
+			            if (result > 0) {
+			                alert("댓글 작성 성공");
+			                // 추가된 댓글 목록 재조회 등 필요한 동작을 수행
+			                $("#commentContent").val("");
+			            } else {
+			                console.log("댓글 작성 실패");
+			            }
+			        },
+			        error: function () {
+			            console.log("통신 오류");
+			        }
+			    });
+			}
+		</script>
+
+		<!-- 좋아요 기능 -->
+		<!-- 좋아요 수를 쿠키에 저장 -->
+		<script>
+		  $(function() {
+		    // checkLikeAndInterestStatus(); // 페이지 로딩 시 한 번만 호출하도록 변경
+		    selectCommentList();
+		    isLikeOn();
+		    isInterestOn();
+		  });
+		  
+		  //게시물을 조회했을 때 게시글 조회한 사용자가 이 게시글을 좋아요 했는지 안했는지 판단. 했으면 하트를 채워두고 안했으면 빈하트로
+		  function isLikeOn(){
+			  $.ajax({
+				  url:"isLike.po",
+				  data : {
+					  postNo : ${p.postNo},
+			  		  mno : ${loginMember.memberNo}
+				  },
+				  success : function(result){
+					  if(result === "exist"){
+						   $("#likeButton>i").removeClass('bi-heart');
+					  		$("#likeButton>i").addClass('bi-heart-fill');
+					  }else{
+						  $("#likeButton>i").removeClass('bi-heart-fill');
+					  	  $("#likeButton>i").addClass('bi-heart');
+					  }
+					 
+				  },
+				  error : function(){
+					  console.log("통신에러");
+				  }
+				  
+			  });
+		  }
+		  //게시물을 조회했을 때 게시글 조회한 사용자가 이 게시글을 관심표시를 했는지 안했는지 판단. 했으면 북마크 아이콘을 채워두고 안했으면 빈 북마크로
+		  function isInterestOn(){
+			  $.ajax({
+				  url:"isInterest.po",
+				  data : {
+					  postNo : ${p.postNo},
+			  		  mno : ${loginMember.memberNo}
+				  },
+				  success : function(result){
+					  if(result === "exist"){
+						   $("#interestButton>i").removeClass('bi-bookmarks');
+					  		$("#interestButton>i").addClass('bi-bookmarks-fill');
+					  }else{
+						  $("#interestButton>i").removeClass('bi-bookmarks-fill');
+					  	  $("#interestButton>i").addClass('bi-bookmarks');
+					  }
+					 
+				  },
+				  error : function(){
+					  console.log("통신에러");
+				  }
+				  
+			  });
+		  }
+	
+		  // 좋아요 버튼 클릭 시
+		  function increaseLikeCount() {
+			  console.log($('#likeButton>i').hasClass('bi-heart-fill'));
+			 //하트가 채워져있다면 (이미 좋아요를 한 글이라면)
+				if ($('#likeButton>i').hasClass('bi-heart-fill')) {
+					//하트가 빈하트라면 (좋아요를 안 한 글이라면)
+					console.log("꽉찬 하트라면 눌리는 곳");
+					$.ajax({
+				      url: "deleteFromLikeTable.po",
+					      data: { 
+					    	  postNo: ${p.postNo},
+					    	  mno : ${loginMember.memberNo}
+					    
+					      },
+					      success: function(result) {
+					        if (result === "success") {
+					          alert("좋아요를 해제하였습니다.");
+					          $("#likeButton>i").removeClass('bi-heart-fill');
+							  $("#likeButton>i").addClass('bi-heart');
+							  var likeCount = parseInt($("#likeCount").text())-1;
+							  console.log("likeCount : "+likeCount);
+							  $("#likeCount").text(likeCount);
+					       
+					        } else {
+					        	alert("실패");
+					        }
+					      },
+					      error: function() {
+					        console.log("통신 오류");
+					      }
+					    });
+					  
+					
+				} else {
+					console.log("빈하트라면 눌리는 곳");
+					//하트가 빈하트라면 (좋아요를 안 한 글이라면)
+					 $.ajax({
+					      url: "insertToLikeTable.po",
+					      data: { 
+					    	  postNo: ${p.postNo},
+					    	  mno : ${loginMember.memberNo}
+					    
+					      },
+					      success: function(result) {
+					        if (result === "success") {
+					          alert("좋아요를 눌렀습니다");
+					          $("#likeButton>i").removeClass('bi-heart');
+						  	  $("#likeButton>i").addClass('bi-heart-fill');
+						  	  var likeCount = parseInt($("#likeCount").text())+1;
+						  	  console.log("likeCount : "+likeCount);
+							  $("#likeCount").text(likeCount);
+					    
+					        } else {
+					        	alert("실패");
+					        }
+					      },
+					      error: function() {
+					        console.log("통신 오류");
+					      }
+					    });
+				}
+			}
+		
+		   
+
+ 
+		
+		  // 관심 버튼 클릭 시
+		
+		  function increaseInterestCount() {
+			  console.log($('#interestButton>i').hasClass('bi-bookmarks-fill'));
+				 //북마크가 채워져있다면 (이미 관심표시를 한 글이라면)
+					if ($('#interestButton>i').hasClass('bi-bookmarks-fill')) {
+						console.log("꽉찬 북마크라면 눌리는 곳");
+						$.ajax({
+					      url: "deleteFromInterestTable.po",
+						      data: { 
+						    	  postNo: ${p.postNo},
+						    	  mno : ${loginMember.memberNo}
+						    
+						      },
+						      success: function(result) {
+						        if (result === "success") {
+						          alert("관심을 해제하였습니다.");
+						          $("#interestButton>i").removeClass('bi-bookmarks-fill');
+								  $("#interestButton>i").addClass('bi-bookmarks');
+								  var interestCount = parseInt($("#interestCount").text())-1;
+							  	  console.log("interestCount : "+interestCount);
+							  	  $("#interestCount").text(interestCount);
+						          // 쿠키에 좋아요 수 저장 (이미 클릭한 경우도 저장해야 함)
+						         
+						        } else {
+						        	alert("실패");
+						        }
+						      },
+						      error: function() {
+						        console.log("통신 오류");
+						      }
+						 });
+						  
+						
+					} else {
+						console.log("빈 북마크라면 눌리는 곳");
+						//북마크가 빈 북마크라면 (좋아요를 안 한 글이라면)
+						 $.ajax({
+						      url: "insertToInterestTable.po",
+						      data: { 
+						    	  postNo: ${p.postNo},
+						    	  mno : ${loginMember.memberNo}
+						    
+						      },
+						      success: function(result) {
+						        if (result === "success") {
+						          alert("관심버튼을 눌렀습니다");
+						          $("#interestButton>i").removeClass('bi-bookmarks');
+							  	  $("#interestButton>i").addClass('bi-bookmarks-fill');
+							  	  var interestCount = parseInt($("#interestCount").text())+1;
+							  	  console.log("interestCount : "+interestCount);
+							  	  $("#interestCount").text(interestCount);
+						      
+						        } else {
+						        	alert("실패");
+						        }
+						      },
+						      error: function() {
+						        console.log("통신 오류");
+						      }
+						    });
+					}
+		  }
+		  
+		// 댓글 수정
+	  function updateComment(el) {
+		//번호 추출하기 (el은 클릭된 요소객체[this로 전달받음])
+	    var commentNo = $(el).parents(".zz").children().eq(0).text();
+	  	//내용 추출하기 (el은 클릭된 요소객체[this로 전달받음])
+		var content = $(el).parents(".zz").find('input[type=text]').val();
+	  	$.ajax({
+	          url: "updateComment.po",
+	          data: {
+	              content: content,
+	              commentNo: commentNo,
+	              postNo : ${p.postNo}
+	          },
+	          type: "post",
+	          success: function (result) {
+	              if (result > 0) {
+	                  alert("댓글 수정 성공");
+	                  // 추가된 댓글 목록 재조회 등 필요한 동작을 수행
+	                  $("#content").val("");
+	                  selectCommentList(); // 댓글 목록을 다시 불러옴
+	              } else {
+	                  console.log("댓글 수정 실패");
+	              }
+	          },
+	          error: function () {
+	              console.log("통신 오류");
+	          }
+	      });
+	  }
+
+	  // 댓글 삭제
+	  function deleteComment(commentNo) {
+	      console.log("클릭한 delete버튼의 no: " + commentNo); // 로그 추가
+
+	      $.ajax({
+	          url: "deleteComment.po",
+	          data: {
+	              commentNo: commentNo,
+	              postNo : ${p.postNo}
+	          },
+	          type: "post",
+	          success: function (result) {
+	              if (result > 0) {
+	                  alert("댓글 삭제 성공");
+	                  // 삭제된 댓글 목록 재조회 등 필요한 동작을 수행
+	                  selectCommentList(); // 댓글 목록을 다시 불러옴
+	              } else {
+	                  console.log("댓글 삭제 실패");
+	              }
+	          },
+	          error: function () {
+	              console.log("통신 오류");
+	          }
+	      });
+	  }
+	  
+
+		</script>
+		<br><br><br>
+	</div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+package com.gz.complain.model.vo;
+
+public class Reply {
+
+}
